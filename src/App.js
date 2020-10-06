@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { UnitView } from "./Views/UnitView";
+import { Header} from "./Components/Header"
+import * as d3 from 'd3'
+const App = () => {
+  const [data, setData] = React.useState([])
+  React.useEffect(() => {
+    const getData = async () => {
+      const d = await d3.csv('ieee_vis_1990_2018.csv')
+      setData(d)
+    }
+    getData()
+  }, [])
+  const title = "Vis for Vis - PKU Vis"
+  const affliation = "";
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="HeaderContainer">
+        <Header title={title} affliation={affliation} />
+      </div>
+      <UnitView data={data} />
     </div>
   );
 }

@@ -1,0 +1,15 @@
+.unit-block-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  // justify-content: space-around;
+  padding: 5px 2px;
+}
+
+.unit {
+  width: 6px;
+  height: 6px;
+  margin: 1px;
+  border-radius: 12px;
+  background: rgb(32, 32, 32);
+}
