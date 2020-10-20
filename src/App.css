@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+.selected {
+  border: 2px solid rgb(212, 68, 31) !important;
+  background:rgb(212, 68, 31) !important;
+  margin: 0 !important;
+  opacity: 1 !important;
+}
+.selected-ref {
+  border: 2px solid rgb(175, 158, 0) !important;
+  background:rgb(175, 158, 0) !important;
+  margin: 0 !important;
+  opacity: 1 !important;
+}
+.selected-cited {
+  border: 2px solid rgb(32, 112, 29) !important;
+  background:rgb(32, 112, 29) !important;
+  margin: 0 !important;
+  opacity: 1 !important;
+}
