@@ -20,10 +20,8 @@ export const UnitView = ({ data, handleClick }) => {
     });
   });
   data.forEach((d) => {
-    console.log("d", d);
     const type = d["Conference"] === "Vis" ? "SciVis" : d["Conference"];
     const year = d["Year"];
-    console.log(type, year, gridData);
     gridData[type][year].push(d);
   });
   console.log("gridData", gridData);

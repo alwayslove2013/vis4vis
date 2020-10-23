@@ -1,9 +1,10 @@
 import React from "react";
 import logo from "./logo.svg";
-import "./App.css";
+import "./App.scss";
 import { UnitView } from "./Views/UnitView";
 import { Header } from "./Components/Header";
 import * as d3 from "d3";
+import { Layout } from "antd";
 
 const App = () => {
   const [data, setData] = React.useState([]);
@@ -14,7 +15,18 @@ const App = () => {
     };
     getData();
   }, []);
-
+  const doi2paper = React.useMemo(() => {
+    let res = {}
+    data.forEach(d => {
+      let doi = d["DOI"]
+      .replaceAll("/", "")
+      .replaceAll(".", "")
+      .replaceAll("#", "");
+      res[doi] = d
+    })
+    console.log('res', res)
+    return res
+  }, [data])
   const refNet = {};
   const citedNet = {};
   let clickDoi = "";
@@ -61,14 +73,19 @@ const App = () => {
       d3.select(`#unit-${cited}`).classed("selected-cited", true);
     });
   };
-  const title = "Vis for Vis - PKU Vis";
-  const affliation = "";
+  const title = "Vis for Vis";
+  const affliation = "PKU Vis";
   return (
     <div className="App">
       <div className="HeaderContainer">
         <Header title={title} affliation={affliation} />
       </div>
-      <UnitView data={data} handleClick={handleClick} />
+      <div className="ContentContainer">
+        <div className="MainViewContainer">
+          <UnitView data={data} handleClick={handleClick} />
+        </div>
+        <div className="DetalViewContainer"></div>
+      </div>
     </div>
   );
 };

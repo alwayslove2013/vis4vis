@@ -26,3 +26,6 @@ class Store {
     this.isHovered = false;
   }
 }
+
+export const StoreContext = React.createContext();
+export const useStore = () => React.useContext(StoreContext);

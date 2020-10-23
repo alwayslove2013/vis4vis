@@ -1,0 +1,62 @@
+.selected {
+  border: 1px solid rgb(212, 68, 31) !important;
+  background:rgb(212, 68, 31) !important;
+  // margin: 0 !important;
+  opacity: 1 !important;
+}
+.selected-ref {
+  border: 1px solid rgb(175, 158, 0) !important;
+  background:rgb(175, 158, 0) !important;
+  // margin: 0 !important;
+  opacity: 1 !important;
+}
+.selected-cited {
+  border: 1px solid rgb(32, 112, 29) !important;
+  background:rgb(32, 112, 29) !important;
+  // margin: 0 !important;
+  opacity: 1 !important;
+}
+
+
+$headerHeight: 26px;
+$detailViewWidth: 200px;
+.App {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .HeaderContainer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: $headerHeight;
+    width: 100%;
+  }
+  .ContentContainer {
+    position: absolute;
+    left: 0;
+    top: $headerHeight;
+    width: 100%;
+    bottom: 0;
+    // background: green;
+    .MainViewContainer {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: $detailViewWidth;
+      bottom: 0;
+      // background: yellow;
+      padding: 10px;
+    }
+    .DetalViewContainer {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: $detailViewWidth;
+      bottom: 0;
+      background: blue;
+    }
+  }
+}
