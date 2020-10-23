@@ -19,7 +19,7 @@
 
 
 $headerHeight: 26px;
-$detailViewWidth: 200px;
+$detailViewWidth: 400px;
 .App {
   position: relative;
   left: 0;
@@ -56,7 +56,7 @@ $detailViewWidth: 200px;
       top: 0;
       width: $detailViewWidth;
       bottom: 0;
-      background: blue;
+      // background: blue;
     }
   }
 }

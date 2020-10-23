@@ -4,7 +4,6 @@ import { UnitBlock } from "../UnitBlock";
 import * as d3 from "d3";
 
 export const UnitView = ({ data, handleClick }) => {
-  console.log("data", data);
   const visTypeList = ["InfoVis", "VAST", "SciVis"];
   const beginYear = 1990;
   const endYear = 2019;
@@ -24,7 +23,6 @@ export const UnitView = ({ data, handleClick }) => {
     const year = d["Year"];
     gridData[type][year].push(d);
   });
-  console.log("gridData", gridData);
   
   return (
     <div className="unit-view-container">

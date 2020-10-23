@@ -4,10 +4,13 @@ import "./App.scss";
 import { UnitView } from "./Views/UnitView";
 import { Header } from "./Components/Header";
 import * as d3 from "d3";
-import { Layout } from "antd";
+import { DetailView } from "./Views/DetailView";
 
 const App = () => {
   const [data, setData] = React.useState([]);
+
+  const [selected, setSelected] = React.useState("");
+
   React.useEffect(() => {
     const getData = async () => {
       const dd = await d3.csv("ieee_vis_1990_2019.csv");
@@ -15,63 +18,60 @@ const App = () => {
     };
     getData();
   }, []);
-  const doi2paper = React.useMemo(() => {
-    let res = {}
-    data.forEach(d => {
-      let doi = d["DOI"]
-      .replaceAll("/", "")
-      .replaceAll(".", "")
-      .replaceAll("#", "");
-      res[doi] = d
-    })
-    console.log('res', res)
-    return res
-  }, [data])
-  const refNet = {};
-  const citedNet = {};
-  let clickDoi = "";
-  let refs = refNet[clickDoi] || [];
-  let citeds = citedNet[clickDoi] || [];
-  data.forEach((d) => {
-    const refs = d["InternalReferences"].split(";");
-    const doi = d["DOI"]
-      .replaceAll("/", "")
-      .replaceAll(".", "")
-      .replaceAll("#", "");
-    d["DOI"] = doi;
-    refs.forEach((ref) => {
-      ref = ref.replaceAll("/", "").replaceAll(".", "").replaceAll("#", "");
-      if (!(doi in refNet)) {
-        refNet[doi] = [ref];
-      } else {
-        refNet[doi].push(ref);
-      }
-      if (!(ref in citedNet)) {
-        citedNet[ref] = [doi];
-      } else {
-        citedNet[ref].push(doi);
-      }
+
+  const { doi2paper, refNet, citedNet } = React.useMemo(() => {
+    const doi2paper = {};
+    const refNet = {};
+    const citedNet = {};
+    data.forEach((d) => {
+      const refs = d["InternalReferences"].split(";");
+      const doi = d["DOI"]
+        .replaceAll("/", "")
+        .replaceAll(".", "")
+        .replaceAll("#", "");
+      d["DOI"] = doi;
+      doi2paper[doi] = d;
+      refs.forEach((ref) => {
+        ref = ref.replaceAll("/", "").replaceAll(".", "").replaceAll("#", "");
+        if (!(doi in refNet)) {
+          refNet[doi] = [ref];
+        } else {
+          refNet[doi].push(ref);
+        }
+        if (!(ref in citedNet)) {
+          citedNet[ref] = [doi];
+        } else {
+          citedNet[ref].push(doi);
+        }
+      });
     });
-  });
+    return { doi2paper, refNet, citedNet };
+  }, [data]);
+
   const handleClick = (doi) => {
-    console.log(refs, citeds);
-    d3.select(`#unit-${clickDoi}`).classed("selected", false);
-    refs.forEach((ref) => {
-      d3.select(`#unit-${ref}`).classed("selected-ref", false);
-    });
-    citeds.forEach((cited) => {
-      d3.select(`#unit-${cited}`).classed("selected-cited", false);
-    });
-    clickDoi = doi;
-    refs = refNet[clickDoi] || [];
-    citeds = citedNet[clickDoi] || [];
-    d3.select(`#unit-${clickDoi}`).classed("selected", true);
-    refs.forEach((ref) => {
-      d3.select(`#unit-${ref}`).classed("selected-ref", true);
-    });
-    citeds.forEach((cited) => {
-      d3.select(`#unit-${cited}`).classed("selected-cited", true);
-    });
+    console.log("selected", doi);
+    if (doi !== selected) {
+      let refs = refNet[selected] || [];
+      let citeds = citedNet[selected] || [];
+      d3.select(`#unit-${selected}`).classed("selected", false);
+      refs.forEach((ref) => {
+        d3.select(`#unit-${ref}`).classed("selected-ref", false);
+      });
+      citeds.forEach((cited) => {
+        d3.select(`#unit-${cited}`).classed("selected-cited", false);
+      });
+      refs = refNet[doi] || [];
+      citeds = citedNet[doi] || [];
+      console.log("after", refs, citeds);
+      d3.select(`#unit-${doi}`).classed("selected", true);
+      refs.forEach((ref) => {
+        d3.select(`#unit-${ref}`).classed("selected-ref", true);
+      });
+      citeds.forEach((cited) => {
+        d3.select(`#unit-${cited}`).classed("selected-cited", true);
+      });
+      setSelected(doi);
+    }
   };
   const title = "Vis for Vis";
   const affliation = "PKU Vis";
@@ -84,7 +84,11 @@ const App = () => {
         <div className="MainViewContainer">
           <UnitView data={data} handleClick={handleClick} />
         </div>
-        <div className="DetalViewContainer"></div>
+        <div className="DetalViewContainer">
+          {selected !== "" && selected in doi2paper && (
+            <DetailView selectedPaper={doi2paper[selected]} />
+          )}
+        </div>
       </div>
     </div>
   );

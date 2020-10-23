@@ -7,15 +7,15 @@ export const UnitBlock = ({ unitBlock, handleClick }) => {
   return (
     <div className="unit-block-container">
       {unitBlock.map((unit) => (
-        <Unit key={unit["Title"]} count={unit[countAttr]} doi={unit['DOI']} handleClick={handleClick}/>
+        <Unit key={unit["Title"]} title={unit["Title"]} count={unit[countAttr]} doi={unit['DOI']} handleClick={handleClick}/>
       ))}
     </div>
   );
 };
 
-export const Unit = ({ count, doi, handleClick }) => {
+export const Unit = ({ title, count, doi, handleClick }) => {
   const style = {
     opacity: count > 70 ? 0.8 : count / 100 + 0.1,
   };
-  return <div className="unit" id={`unit-${doi}`} style={style} onClick={() => handleClick(doi)} />;
+  return <div title={title} className="unit" id={`unit-${doi}`} style={style} onClick={() => handleClick(doi)} />;
 };
