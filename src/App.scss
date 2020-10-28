@@ -1,25 +1,47 @@
 .selected {
   border: 1px solid rgb(212, 68, 31) !important;
-  background:rgb(212, 68, 31) !important;
+  background: rgb(212, 68, 31) !important;
   // margin: 0 !important;
   opacity: 1 !important;
 }
 .selected-ref {
   border: 1px solid rgb(175, 158, 0) !important;
-  background:rgb(175, 158, 0) !important;
+  background: rgb(175, 158, 0) !important;
   // margin: 0 !important;
   opacity: 1 !important;
 }
 .selected-cited {
   border: 1px solid rgb(32, 112, 29) !important;
-  background:rgb(32, 112, 29) !important;
+  background: rgb(32, 112, 29) !important;
   // margin: 0 !important;
   opacity: 1 !important;
 }
 
+.all-china {
+  background: rgb(212, 68, 31) !important;
+  opacity: 1 !important;
+}
+.has-china {
+  border: 1px solid rgb(212, 68, 31) !important;
+  opacity: 1 !important;
+}
+
+.all-japan {
+  background: rgb(32, 112, 29) !important;
+  opacity: 1 !important;
+}
+.has-japan {
+  border: 1px solid rgb(32, 112, 29) !important;
+  opacity: 1 !important;
+}
+.active-button {
+  background: rgb(88, 153, 214);
+  color: rgb(255, 234, 234);
+}
 
 $headerHeight: 26px;
 $detailViewWidth: 400px;
+$controlPanelHeight: 50px;
 .App {
   position: relative;
   left: 0;
@@ -41,10 +63,19 @@ $detailViewWidth: 400px;
     width: 100%;
     bottom: 0;
     // background: green;
-    .MainViewContainer {
+    .ControlViewContainer {
       position: absolute;
       left: 0;
       top: 0;
+      height: $controlPanelHeight;
+      right: $detailViewWidth;
+      // background: red;
+      padding: 5px 10px;
+    }
+    .MainViewContainer {
+      position: absolute;
+      left: 0;
+      top: $controlPanelHeight;
       right: $detailViewWidth;
       bottom: 0;
       // background: yellow;

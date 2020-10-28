@@ -5,6 +5,7 @@ import { UnitView } from "./Views/UnitView";
 import { Header } from "./Components/Header";
 import * as d3 from "d3";
 import { DetailView } from "./Views/DetailView";
+import { ControlView } from "./Views/ControlView";
 
 const App = () => {
   const [data, setData] = React.useState([]);
@@ -13,7 +14,7 @@ const App = () => {
 
   React.useEffect(() => {
     const getData = async () => {
-      const dd = await d3.csv("ieee_vis_1990_2019.csv");
+      const dd = await d3.csv("ieee_vis_1990_2019_countries.csv");
       setData(dd);
     };
     getData();
@@ -81,6 +82,9 @@ const App = () => {
         <Header title={title} affliation={affliation} />
       </div>
       <div className="ContentContainer">
+        <div className="ControlViewContainer">
+          <ControlView />
+        </div>
         <div className="MainViewContainer">
           <UnitView data={data} handleClick={handleClick} />
         </div>

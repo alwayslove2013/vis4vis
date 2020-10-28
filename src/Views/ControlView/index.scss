@@ -1,0 +1,13 @@
+.control-view {
+  // box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  .button {
+    font-size: 12px;
+    padding: 1px 8px;
+    margin: 5px 10px;
+    border-radius: 5px;
+    border: solid 1px rgb(80, 80, 80);
+    cursor: pointer;
+  }
+}
+
