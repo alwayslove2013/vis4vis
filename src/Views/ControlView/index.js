@@ -8,21 +8,37 @@ export const ControlView = () => {
       text: "All Chinese",
       class: "All_China",
       select: "all-china",
-    },
-    {
-      text: "All Japanese",
-      class: "All_Japan",
-      select: "all-japan",
+      buttonClass: "active-button-china",
     },
     {
       text: "Part Chinese",
       class: "Has_China",
       select: "has-china",
+      buttonClass: "active-button-china",
+    },
+    {
+      text: "All Japanese",
+      class: "All_Japan",
+      select: "all-japan",
+      buttonClass: "active-button-japan",
     },
     {
       text: "Part Japanese",
       class: "Has_Japan",
       select: "has-japan",
+      buttonClass: "active-button-japan",
+    },
+    {
+      text: "All Korean",
+      class: "All_Korea",
+      select: "all-korea",
+      buttonClass: "active-button-korea",
+    },
+    {
+      text: "Part Korean",
+      class: "Has_Korea",
+      select: "has-korea",
+      buttonClass: "active-button-korea",
     },
   ];
   const handleClick = (button, flag) => {
@@ -40,7 +56,7 @@ export const ControlView = () => {
 
 export const Button = ({ button, handleClick }) => {
   const [selected, setSelected] = React.useState(false);
-  const className = ["button", selected && "active-button"]
+  const className = ["button", selected && button.buttonClass]
     .filter((d) => d)
     .join(" ");
   const _handleClick = () => {

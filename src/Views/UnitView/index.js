@@ -4,7 +4,7 @@ import { UnitBlock } from "../UnitBlock";
 import * as d3 from "d3";
 
 export const UnitView = ({ data, handleClick }) => {
-  const visTypeList = ["InfoVis", "VAST", "SciVis"];
+  const visTypeList = ["SciVis", "InfoVis", "VAST", "PacificVis"];
   const beginYear = 1990;
   const endYear = 2019;
   const yearList = [];
@@ -18,12 +18,14 @@ export const UnitView = ({ data, handleClick }) => {
       gridData[visType][year] = [];
     });
   });
-  data.forEach((d) => {
-    const type = d["Conference"] === "Vis" ? "SciVis" : d["Conference"];
-    const year = d["Year"];
-    gridData[type][year].push(d);
-  });
-  
+  data
+    .filter((d) => d["Year"] <= endYear)
+    .forEach((d) => {
+      const type = d["Conference"] === "Vis" ? "SciVis" : d["Conference"];
+      const year = d["Year"];
+      gridData[type][year].push(d);
+    });
+
   return (
     <div className="unit-view-container">
       <div className="blank"></div>

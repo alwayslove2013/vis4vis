@@ -15,6 +15,8 @@ export const UnitBlock = ({ unitBlock, handleClick }) => {
           handleClick={handleClick}
           All_China={unit.All_China}
           All_Japan={unit.All_Japan}
+          All_Korea={unit.All_Korea}
+          Has_Korea={unit.Has_Korea}
           Has_China={unit.Has_China}
           Has_Japan={unit.Has_Japan}
         />
@@ -30,18 +32,22 @@ export const Unit = ({
   handleClick,
   All_China,
   All_Japan,
+  All_Korea,
+  Has_Korea,
   Has_China,
   Has_Japan,
 }) => {
   const style = {
-    opacity: count > 70 ? 0.8 : count / 100 + 0.1,
+    opacity: count > 100 ? 0.6 : count / 200 + 0.1,
   };
   const className = [
     "unit",
-    All_China=='True' && "All_China",
-    All_Japan=='True' && "All_Japan",
-    Has_China=='True' && "Has_China",
-    Has_Japan=='True' && "Has_Japan",
+    All_China == "True" && "All_China",
+    All_Japan == "True" && "All_Japan",
+    All_Korea == "True" && "All_Korea",
+    Has_China == "True" && "Has_China",
+    Has_Japan == "True" && "Has_Japan",
+    Has_Korea == "True" && "Has_Korea",
   ]
     .filter((d) => d)
     .join(" ");
@@ -51,7 +57,10 @@ export const Unit = ({
       className={className}
       id={`unit-${doi}`}
       style={style}
-      onClick={() => handleClick(doi)}
+      onClick={(e) => {
+        e.stopPropagation();
+        handleClick(doi);
+      }}
     />
   );
 };

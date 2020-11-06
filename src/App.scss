@@ -16,31 +16,90 @@
   // margin: 0 !important;
   opacity: 1 !important;
 }
+$fade-time: 2s;
 
-.all-china {
-  background: rgb(212, 68, 31) !important;
-  opacity: 1 !important;
-}
+$china-color: #fc8d59;
 .has-china {
-  border: 1px solid rgb(212, 68, 31) !important;
+  background: $china-color !important;
   opacity: 1 !important;
+}
+.all-china {
+  border: 1px solid $china-color !important;
+  background: $china-color !important;
+  opacity: 1 !important;
+  // animation: fade 1s infinite;
+  // -webkit-animation: fade $fade-time infinite;
 }
 
-.all-japan {
-  background: rgb(32, 112, 29) !important;
-  opacity: 1 !important;
-}
+$japan-color: #beaed4;
 .has-japan {
-  border: 1px solid rgb(32, 112, 29) !important;
+  background: $japan-color !important;
   opacity: 1 !important;
 }
+.all-japan {
+  border: 1px solid $japan-color !important;
+  background: $japan-color !important;
+  opacity: 1 !important;
+  // animation: fade $fade-time infinite;
+  // -webkit-animation: fade $fade-time infinite;
+}
+
+$korea-color: #7fc97f;
+.has-korea {
+  background: $korea-color !important;
+  opacity: 1 !important;
+}
+.all-korea {
+  border: 1px solid $korea-color !important;
+  background: $korea-color !important;
+  opacity: 1 !important;
+  // animation: fade $fade-time infinite;
+  // -webkit-animation: fade $fade-time infinite;
+}
+
 .active-button {
   background: rgb(88, 153, 214);
   color: rgb(255, 234, 234);
 }
+.active-button-china {
+  background: $china-color;
+  color: rgb(255, 234, 234);
+}
+.active-button-japan {
+  background: $japan-color;
+  color: rgb(255, 234, 234);
+}
+.active-button-korea {
+  background: $korea-color;
+  color: rgb(255, 234, 234);
+}
+
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fade {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 $headerHeight: 26px;
-$detailViewWidth: 400px;
+$detailViewWidth: 300px;
 $controlPanelHeight: 50px;
 .App {
   position: relative;

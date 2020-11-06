@@ -9,6 +9,7 @@ export const DetailView = ({ selectedPaper }) => {
   console.log("selectedPaper", selectedPaper);
   const [comment, setComment] = React.useState("write something");
   const authors = selectedPaper["AuthorNames"] || "";
+  const countries = selectedPaper["Countries"] || "";
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
@@ -25,17 +26,18 @@ export const DetailView = ({ selectedPaper }) => {
       <Title level={4}>{selectedPaper["Title"]}</Title>
       <Space direction="vertical">
         <Text>{authors.split(";").join("; ")}</Text>
+        <Text>{countries.split(";").join("; ")}</Text>
         <Text>
-          <EditOutlined style={{ "margin-right": 10 }} />
-          Classic <Switch size={"small"} style={{ "margin-left": 10 }} />
+          <EditOutlined style={{ marginRight: 10 }} />
+          Classic <Switch size={"small"} style={{ marginLeft: 10 }} />
         </Text>
         <Text>
-          <EditOutlined style={{ "margin-right": 10 }} />
+          <EditOutlined style={{ marginRight: 10 }} />
           Tags{" "}
           <Select
             size="small"
             mode="tags"
-            style={{ width: "60%", "margin-left": 5, 'margin-top': 5 }}
+            style={{ width: "60%", marginLeft: 5, marginTop: 5 }}
             placeholder="Select or Add Tags"
             onChange={handleChange}
           >
@@ -43,7 +45,7 @@ export const DetailView = ({ selectedPaper }) => {
           </Select>
         </Text>
         <Text>
-          <EditOutlined style={{ "margin-right": 10 }} />
+          <EditOutlined style={{ marginRight: 10 }} />
           Comment
         </Text>
         <Paragraph

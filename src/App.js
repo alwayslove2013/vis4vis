@@ -14,8 +14,10 @@ const App = () => {
 
   React.useEffect(() => {
     const getData = async () => {
-      const dd = await d3.csv("ieee_vis_1990_2019_countries.csv");
-      setData(dd);
+      const visData = await d3.csv("ieee_vis_1990_2019_countries.csv");
+
+      const pvisData = await d3.csv("pvis_1990_2020_countries.csv");
+      setData(visData.concat(pvisData));
     };
     getData();
   }, []);
@@ -51,7 +53,7 @@ const App = () => {
 
   const handleClick = (doi) => {
     console.log("selected", doi);
-    if (doi !== selected) {
+    if (doi && doi !== selected) {
       let refs = refNet[selected] || [];
       let citeds = citedNet[selected] || [];
       d3.select(`#unit-${selected}`).classed("selected", false);
@@ -74,6 +76,17 @@ const App = () => {
       setSelected(doi);
     }
   };
+  const handleClickBackground = () => {
+    let refs = refNet[selected] || [];
+    let citeds = citedNet[selected] || [];
+    d3.select(`#unit-${selected}`).classed("selected", false);
+    refs.forEach((ref) => {
+      d3.select(`#unit-${ref}`).classed("selected-ref", false);
+    });
+    citeds.forEach((cited) => {
+      d3.select(`#unit-${cited}`).classed("selected-cited", false);
+    });
+  };
   const title = "Vis for Vis";
   const affliation = "PKU Vis";
   return (
@@ -85,7 +98,7 @@ const App = () => {
         <div className="ControlViewContainer">
           <ControlView />
         </div>
-        <div className="MainViewContainer">
+        <div className="MainViewContainer" onClick={handleClickBackground}>
           <UnitView data={data} handleClick={handleClick} />
         </div>
         <div className="DetalViewContainer">
