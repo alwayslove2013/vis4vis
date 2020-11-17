@@ -5,51 +5,62 @@ import * as d3 from "d3";
 export const ControlView = () => {
   const buttons = [
     {
-      text: "All Chinese",
+      text: "Independent",
       class: "All_China",
       select: "all-china",
       buttonClass: "active-button-china",
     },
     {
-      text: "Part Chinese",
-      class: "Has_China",
-      select: "has-china",
-      buttonClass: "active-button-china",
-    },
-    {
-      text: "All Japanese",
+      text: "Independent",
       class: "All_Japan",
       select: "all-japan",
       buttonClass: "active-button-japan",
     },
     {
-      text: "Part Japanese",
-      class: "Has_Japan",
-      select: "has-japan",
-      buttonClass: "active-button-japan",
-    },
-    {
-      text: "All Korean",
+      text: "Independent",
       class: "All_Korea",
       select: "all-korea",
       buttonClass: "active-button-korea",
     },
     {
-      text: "Part Korean",
+      text: "Cooperative",
+      class: "Has_China",
+      select: "has-china",
+      buttonClass: "active-button-china",
+    },
+    {
+      text: "Cooperative",
+      class: "Has_Japan",
+      select: "has-japan",
+      buttonClass: "active-button-japan",
+    },
+    {
+      text: "Cooperative",
       class: "Has_Korea",
       select: "has-korea",
       buttonClass: "active-button-korea",
     },
   ];
   const handleClick = (button, flag) => {
-    console.log('button', button, flag)
+    console.log("button", button, flag);
     d3.selectAll(`.${button.class}`).classed(button.select, flag);
   };
   return (
     <div className="control-view">
-      {buttons.map((button) => (
-        <Button key={button.text} button={button} handleClick={handleClick} />
-      ))}
+      <div className="contril-panel-contry">
+        <>
+          <div className="control-view-header">China</div>
+          <div className="control-view-header">Japanese</div>
+          <div className="control-view-header">Korean</div>
+          {buttons.map((button) => (
+            <Button
+              key={button.text}
+              button={button}
+              handleClick={handleClick}
+            />
+          ))}
+        </>
+      </div>
     </div>
   );
 };
@@ -63,9 +74,10 @@ export const Button = ({ button, handleClick }) => {
     handleClick(button, !selected);
     setSelected(!selected);
   };
+  const num = d3.selectAll(`.${button.class}`).nodes().length;
   return (
     <div className={className} onClick={() => _handleClick()}>
-      {button.text}
+      {button.text} {`(${selected ? num : 0})`}
     </div>
   );
 };
