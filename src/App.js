@@ -10,14 +10,26 @@ import { ControlView } from "./Views/ControlView";
 const App = () => {
   const [data, setData] = React.useState([]);
 
-  const [selected, setSelected] = React.useState("");
+  const [selected, setSelected] = React.useState({});
 
   React.useEffect(() => {
     const getData = async () => {
       const visData = await d3.csv("ieee_vis_1990_2019[countries]_1116.csv");
 
       const pvisData = await d3.csv("pvis_1990_2020_countries.csv");
-      setData(visData.concat(pvisData));
+
+      const allData = visData.concat(pvisData);
+      allData.forEach((d) => {
+        d.originDoi = d["DOI"].concat();
+        // console.log('Origin', d.originDoi);
+
+        d["DOI"] = d["DOI"]
+          .replaceAll("/", "")
+          .replaceAll(".", "")
+          .replaceAll("#", "");
+      });
+
+      setData(allData);
     };
     getData();
   }, []);
@@ -28,11 +40,8 @@ const App = () => {
     const citedNet = {};
     data.forEach((d) => {
       const refs = d["InternalReferences"].split(";");
-      const doi = d["DOI"]
-        .replaceAll("/", "")
-        .replaceAll(".", "")
-        .replaceAll("#", "");
-      d["DOI"] = doi;
+      // console.log(d["DOI"])
+      const doi = d["DOI"];
       doi2paper[doi] = d;
       refs.forEach((ref) => {
         ref = ref.replaceAll("/", "").replaceAll(".", "").replaceAll("#", "");
@@ -51,12 +60,14 @@ const App = () => {
     return { doi2paper, refNet, citedNet };
   }, [data]);
 
-  const handleClick = (doi) => {
+  const handleClick = (unit) => {
+    // console.log("unit", unit);
+    const doi = unit.DOI;
     console.log("selected", doi);
-    if (doi && doi !== selected) {
-      let refs = refNet[selected] || [];
-      let citeds = citedNet[selected] || [];
-      d3.select(`#unit-${selected}`).classed("selected", false);
+    if (doi && doi !== selected.DOI) {
+      let refs = refNet[selected.DOI] || [];
+      let citeds = citedNet[selected.DOI] || [];
+      d3.select(`#unit-${selected.DOI}`).classed("selected", false);
       refs.forEach((ref) => {
         d3.select(`#unit-${ref}`).classed("selected-ref", false);
       });
@@ -65,7 +76,7 @@ const App = () => {
       });
       refs = refNet[doi] || [];
       citeds = citedNet[doi] || [];
-      console.log("after", refs, citeds);
+      // console.log("after", refs, citeds);
       d3.select(`#unit-${doi}`).classed("selected", true);
       refs.forEach((ref) => {
         d3.select(`#unit-${ref}`).classed("selected-ref", true);
@@ -73,13 +84,14 @@ const App = () => {
       citeds.forEach((cited) => {
         d3.select(`#unit-${cited}`).classed("selected-cited", true);
       });
-      setSelected(doi);
     }
+    setSelected(unit);
   };
+
   const handleClickBackground = () => {
-    let refs = refNet[selected] || [];
-    let citeds = citedNet[selected] || [];
-    d3.select(`#unit-${selected}`).classed("selected", false);
+    let refs = refNet[selected.DOI] || [];
+    let citeds = citedNet[selected.DOI] || [];
+    d3.select(`#unit-${selected.DOI}`).classed("selected", false);
     refs.forEach((ref) => {
       d3.select(`#unit-${ref}`).classed("selected-ref", false);
     });
@@ -102,9 +114,10 @@ const App = () => {
           <UnitView data={data} handleClick={handleClick} />
         </div>
         <div className="DetalViewContainer">
-          {selected !== "" && selected in doi2paper && (
-            <DetailView selectedPaper={doi2paper[selected]} />
-          )}
+          {/* {selected !== "" && selected in doi2paper && (
+            <DetailView selectedPaper={selected} />
+          )} */}
+          <DetailView selectedPaper={selected} />
         </div>
       </div>
     </div>

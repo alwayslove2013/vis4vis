@@ -1,6 +1,7 @@
 .control-view {
   // box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  .contril-panel-contry {
+  display: flex;
+  .control-panel-country {
     // height: 50px;
     width: 340px;
     display: grid;
@@ -25,5 +26,8 @@
       justify-content: center;
       align-items: center;
     }
+  }
+  .control-panel-classic {
+    margin-left: 50px;
   }
 }

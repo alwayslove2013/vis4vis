@@ -13,30 +13,28 @@ export const UnitBlock = ({ unitBlock, handleClick }) => {
           count={unit[countAttr]}
           doi={unit["DOI"]}
           handleClick={handleClick}
-          All_China={unit.All_China}
-          All_Japan={unit.All_Japan}
-          All_Korea={unit.All_Korea}
-          Has_Korea={unit.Has_Korea}
-          Has_China={unit.Has_China}
-          Has_Japan={unit.Has_Japan}
+          // All_China={unit.All_China}
+          // All_Japan={unit.All_Japan}
+          // All_Korea={unit.All_Korea}
+          // Has_Korea={unit.Has_Korea}
+          // Has_China={unit.Has_China}
+          // Has_Japan={unit.Has_Japan}
+          unit={unit}
         />
       ))}
     </div>
   );
 };
 
-export const Unit = ({
-  title,
-  count,
-  doi,
-  handleClick,
-  All_China,
-  All_Japan,
-  All_Korea,
-  Has_Korea,
-  Has_China,
-  Has_Japan,
-}) => {
+export const Unit = ({ title, count, doi, handleClick, unit }) => {
+  const {
+    All_China,
+    All_Japan,
+    All_Korea,
+    Has_Korea,
+    Has_China,
+    Has_Japan,
+  } = unit;
   const style = {
     opacity: count > 100 ? 0.6 : count / 200 + 0.1,
   };
@@ -59,7 +57,7 @@ export const Unit = ({
       style={style}
       onClick={(e) => {
         e.stopPropagation();
-        handleClick(doi);
+        handleClick(unit);
       }}
     />
   );
