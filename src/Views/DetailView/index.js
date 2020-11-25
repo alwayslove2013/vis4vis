@@ -15,7 +15,7 @@ export const DetailView = ({ selectedPaper }) => {
   };
   const [doi2classic, setClassic] = useState({});
   const fetchData = async () => {
-    fetch("http://127.0.0.1:12358/api/getClassic")
+    fetch("http://vis.pku.edu.cn/vis4vis/getClassic")
       .then((res) => {
         return res.json();
       })
@@ -36,7 +36,7 @@ export const DetailView = ({ selectedPaper }) => {
     "volume rendering",
   ].map((tag) => <Option key={tag}>{tag}</Option>);
   const handleClassic = () => {
-    fetch(`http://127.0.0.1:12358/api/setClassic?doi=${selectedPaper.originDoi}`)
+    fetch(`http://vis.pku.edu.cn/vis4vis/setClassic?doi=${selectedPaper.originDoi}`)
       .then(() => {
         fetchData();
       })

@@ -59,7 +59,7 @@ export const ControlView = () => {
   };
   const [doi2classic, setClassic] = useState({});
   const fetchData = async () => {
-    fetch("http://127.0.0.1:12357/api/getClassic")
+    fetch("http://vis.pku.edu.cn/vis4vis/getClassic")
       .then((res) => {
         return res.json();
       })
