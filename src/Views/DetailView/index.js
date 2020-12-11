@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./index.scss";
 import { Typography, Space, Switch, Select, Checkbox } from "antd";
 import { EditOutlined } from "@ant-design/icons";
+
+import UserView from "../UserView";
+
 const { Title, Text, Paragraph } = Typography;
 const { Option } = Select;
 
@@ -36,13 +39,19 @@ export const DetailView = ({ selectedPaper }) => {
     "volume rendering",
   ].map((tag) => <Option key={tag}>{tag}</Option>);
   const handleClassic = () => {
-    fetch(`http://vis.pku.edu.cn/vis4vis/setClassic?doi=${selectedPaper.originDoi}`)
-      .then(() => {
-        fetchData();
-      })
+    fetch(
+      `http://vis.pku.edu.cn/vis4vis/setClassic?doi=${selectedPaper.originDoi}`
+    ).then(() => {
+      fetchData();
+    });
   };
   const isClassic = doi2classic[selectedPaper.originDoi] ? true : false;
-  console.log('isClassic', isClassic, doi2classic[selectedPaper.originDoi], doi2classic);
+  console.log(
+    "isClassic",
+    isClassic,
+    doi2classic[selectedPaper.originDoi],
+    doi2classic
+  );
   return (
     <div className="detail-view">
       <Title level={4}>{selectedPaper["Title"]}</Title>
@@ -76,6 +85,7 @@ export const DetailView = ({ selectedPaper }) => {
           <EditOutlined style={{ marginRight: 10 }} />
           Comment
         </Text>
+        <UserView title={selectedPaper["Title"]} key={selectedPaper['Title']}/>
         <Paragraph
           type="secondary"
           editable={{

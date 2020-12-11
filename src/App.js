@@ -6,6 +6,7 @@ import { Header } from "./Components/Header";
 import * as d3 from "d3";
 import { DetailView } from "./Views/DetailView";
 import { ControlView } from "./Views/ControlView";
+import UserView from "./Views/UserView";
 
 const App = () => {
   const [data, setData] = React.useState([]);
@@ -119,6 +120,9 @@ const App = () => {
           )} */}
           <DetailView selectedPaper={selected} />
         </div>
+        {/* <div className="UserViewController">
+          <UserView />
+        </div> */}
       </div>
     </div>
   );

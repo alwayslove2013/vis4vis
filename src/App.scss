@@ -101,6 +101,7 @@ $korea-color: #7fc97f;
 $headerHeight: 26px;
 $detailViewWidth: 300px;
 $controlPanelHeight: 75px;
+$userViewHeight: 140px;
 .App {
   position: relative;
   left: 0;
@@ -145,8 +146,19 @@ $controlPanelHeight: 75px;
       right: 0;
       top: 0;
       width: $detailViewWidth;
+      // bottom: $userViewHeight + 10;
       bottom: 0;
       // background: blue;
+      overflow: auto;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+    .UserViewController {
+      position: absolute;
+      right: 0;
+      width: $detailViewWidth;
+      height: $userViewHeight;
+      bottom: 0;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     }
   }
 }
