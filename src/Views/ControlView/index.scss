@@ -3,19 +3,19 @@
   display: flex;
   .control-panel-country {
     // height: 50px;
-    width: 340px;
+    width: 180px;
     display: grid;
     grid-template-columns: repeat(3, auto);
     // grid-template-columns: auto;
     // grid-auto-flow: column;
     .button {
       font-size: 10px;
-      width: 110px;
+      width: 60px;
       // height: 16px;
       padding: 0px 5px;
       margin: 2px 5px;
       border-radius: 5px;
-      border: solid 1px rgb(80, 80, 80);
+      border: solid 1px #ccc;
       cursor: pointer;
       display: flex;
       justify-content: center;
@@ -28,6 +28,32 @@
     }
   }
   .control-panel-classic {
-    margin-left: 50px;
+    .control-panel-classic-title {
+      display: flex;
+      justify-content: center;
+      align-self: center;
+    }
+    border-left: 1px solid #ccc;
+    padding-left: 15px;
+    .ant-tag-checkable {
+      // border: 1px solid #ccc;
+      box-shadow: 0 0 2px #ccc;
+      border-radius: 5px;
+      margin-bottom: 3px;
+    }
+    // .control-panel-classic-tags {
+    //   display: flex;
+    //   flex-wrap: wrap;
+    // }
+  }
+  .control-tags {
+    width: 320px;
+    margin-left: 40px;
+  }
+  .control-users {
+    width: 520px;
+    .ant-tag-checkable-checked {
+      background-color: #e0b21c;
+    }
   }
 }

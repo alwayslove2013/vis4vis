@@ -1,31 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { get } from "lodash";
+import users from "../../common/users";
 import { Tag } from "antd";
 const { CheckableTag } = Tag;
-
-const users = [
-  "lgz",
-  "cs",
-  "ycl",
-  "jrk",
-  "lc",
-  "ljc",
-  "ycf",
-  "lyc",
-  "shn",
-  "tm",
-  "lzx",
-  "ydy",
-  "ych",
-  "lyd",
-  "wdt",
-  "wc",
-  "wh",
-  "tsc",
-  "yjc",
-  "lsh",
-  "lz",
-];
 
 const UserView = ({ title = "" }) => {
   const [isReadUserList, setIsReadUserList] = useState([]);
@@ -52,7 +29,7 @@ const UserView = ({ title = "" }) => {
       ? [...isReadUserList, value]
       : isReadUserList.filter((d) => d !== value);
     // nextList = nextList.filter((d) => d);
-    console.log('nextList', nextList)
+    console.log("nextList", nextList);
     setUser(title, nextList.join(","));
     setIsReadUserList(nextList);
   };
