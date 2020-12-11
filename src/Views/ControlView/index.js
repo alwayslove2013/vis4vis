@@ -6,7 +6,10 @@ import { Tag } from "antd";
 
 const { CheckableTag } = Tag;
 
-export const ControlView = () => {
+export const ControlView = ({
+  selectedUsers = [],
+  setSelectedUsers = () => {},
+}) => {
   const buttons = [
     {
       text: "I",
@@ -70,7 +73,6 @@ export const ControlView = () => {
       });
   };
 
-  const [selectedUsers, setSelectedUsers] = useState([]);
   const handleChangeUser = (user, checked) => {
     const nextSelectedUsers = checked
       ? [...selectedUsers, user]

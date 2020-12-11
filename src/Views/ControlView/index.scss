@@ -55,5 +55,8 @@
     .ant-tag-checkable-checked {
       background-color: #e0b21c;
     }
+    .ant-tag-checkable:not(.ant-tag-checkable-checked):hover {
+      color: #e0b21c;
+    }
   }
 }

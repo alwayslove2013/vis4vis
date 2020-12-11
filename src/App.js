@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.scss";
 import { UnitView } from "./Views/UnitView";
@@ -7,6 +7,7 @@ import * as d3 from "d3";
 import { DetailView } from "./Views/DetailView";
 import { ControlView } from "./Views/ControlView";
 import UserView from "./Views/UserView";
+import { get } from "lodash";
 
 const App = () => {
   const [data, setData] = React.useState([]);
@@ -89,6 +90,36 @@ const App = () => {
     setSelected(unit);
   };
 
+  const [selectedUsers, setSelectedUsers] = useState([]);
+
+  useEffect(() => {
+    const newData = [...data];
+    newData.forEach((d) => {
+      d.isReadSelected = selectedUsers.includes((user) =>
+        d.isReadUsers.has(user)
+      );
+    });
+    setData(newData);
+  }, [selectedUsers]);
+
+  // const [title2users, setTitle2users] = useState([]);
+  const fetchUsers = async () => {
+    fetch("http://vis.pku.edu.cn/vis4vis/getUser")
+      .then((res) => res.json())
+      .then((title2users) => {
+        data.forEach((d) => {
+          const isReadUsersString = get(title2users, d.Title, "");
+          const isReadUsers = new Set(isReadUsersString.split(","));
+          data.isReadUsers = isReadUsers;
+        });
+        // setTitle2users(title2users);
+      });
+  };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+  const refetchUsers = () => fetchUsers();
+
   const handleClickBackground = () => {
     let refs = refNet[selected.DOI] || [];
     let citeds = citedNet[selected.DOI] || [];
@@ -109,7 +140,10 @@ const App = () => {
       </div>
       <div className="ContentContainer">
         <div className="ControlViewContainer">
-          <ControlView />
+          <ControlView
+            selectedUsers={selectedUsers}
+            setSelectedUsers={setSelectedUsers}
+          />
         </div>
         <div className="MainViewContainer" onClick={handleClickBackground}>
           <UnitView data={data} handleClick={handleClick} />
@@ -118,7 +152,7 @@ const App = () => {
           {/* {selected !== "" && selected in doi2paper && (
             <DetailView selectedPaper={selected} />
           )} */}
-          <DetailView selectedPaper={selected} />
+          <DetailView selectedPaper={selected} refetchUsers={refetchUsers} />
         </div>
         {/* <div className="UserViewController">
           <UserView />

@@ -46,6 +46,7 @@ export const Unit = ({ title, count, doi, handleClick, unit }) => {
     Has_China == "True" && "Has_China",
     Has_Japan == "True" && "Has_Japan",
     Has_Korea == "True" && "Has_Korea",
+    unit.isReadUsers && "isRead",
   ]
     .filter((d) => d)
     .join(" ");

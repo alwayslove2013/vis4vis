@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import "./index.scss";
 import { Typography, Space, Switch, Select, Checkbox } from "antd";
 import { EditOutlined } from "@ant-design/icons";
@@ -8,7 +8,7 @@ import UserView from "../UserView";
 const { Title, Text, Paragraph } = Typography;
 const { Option } = Select;
 
-export const DetailView = ({ selectedPaper }) => {
+export const DetailView = memo(({ selectedPaper, refetchUsers = () => {} }) => {
   console.log("selectedPaper", selectedPaper);
   const [comment, setComment] = useState("write something");
   const authors = selectedPaper["AuthorNames"] || "";
@@ -81,11 +81,15 @@ export const DetailView = ({ selectedPaper }) => {
             {children}
           </Select>
         </Text>
+        <UserView
+          title={selectedPaper["Title"]}
+          key={selectedPaper["Title"]}
+          refetchUsers={refetchUsers}
+        />
         <Text>
           <EditOutlined style={{ marginRight: 10 }} />
           Comment
         </Text>
-        <UserView title={selectedPaper["Title"]} key={selectedPaper['Title']}/>
         <Paragraph
           type="secondary"
           editable={{
@@ -108,4 +112,4 @@ export const DetailView = ({ selectedPaper }) => {
       </Space>
     </div>
   );
-};
+});

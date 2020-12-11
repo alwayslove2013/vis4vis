@@ -4,14 +4,14 @@ import users from "../../common/users";
 import { Tag } from "antd";
 const { CheckableTag } = Tag;
 
-const UserView = ({ title = "" }) => {
+const UserView = ({ title = "", refetchUsers = () => {} }) => {
   const [isReadUserList, setIsReadUserList] = useState([]);
   const fetchData = async () => {
     fetch("http://vis.pku.edu.cn/vis4vis/getUser")
       .then((res) => res.json())
       .then((title2users) => {
-        const isReadsers = get(title2users, title, "");
-        setIsReadUserList(isReadsers.split(","));
+        const isReadUsers = get(title2users, title, "");
+        setIsReadUserList(isReadUsers.split(","));
       });
   };
   useEffect(() => {
@@ -22,6 +22,7 @@ const UserView = ({ title = "" }) => {
       "http://vis.pku.edu.cn/vis4vis/setUser?" + `title=${title}&users=${users}`
     ).then(() => {
       fetchData();
+      refetchUsers();
     });
   };
   const onChange = (value, checked) => {
