@@ -8,7 +8,7 @@ import UserView from "../UserView";
 const { Title, Text, Paragraph } = Typography;
 const { Option } = Select;
 
-export const DetailView = memo(({ selectedPaper, refetchUsers = () => {} }) => {
+export const DetailView = ({ selectedPaper, refetchUsers = () => {} }) => {
   console.log("selectedPaper", selectedPaper);
   const [comment, setComment] = useState("write something");
   const authors = selectedPaper["AuthorNames"] || "";
@@ -112,4 +112,4 @@ export const DetailView = memo(({ selectedPaper, refetchUsers = () => {} }) => {
       </Space>
     </div>
   );
-});
+};

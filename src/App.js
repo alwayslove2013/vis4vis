@@ -95,9 +95,9 @@ const App = () => {
   useEffect(() => {
     const newData = [...data];
     newData.forEach((d) => {
-      d.isReadSelected = selectedUsers.includes((user) =>
-        d.isReadUsers.has(user)
-      );
+      d.isReadSelected =
+        selectedUsers.filter((user) => d.isReadUsers && d.isReadUsers.has(user))
+          .length > 0;
     });
     setData(newData);
   }, [selectedUsers]);
@@ -107,17 +107,18 @@ const App = () => {
     fetch("http://vis.pku.edu.cn/vis4vis/getUser")
       .then((res) => res.json())
       .then((title2users) => {
+        console.log("title2users", title2users);
         data.forEach((d) => {
           const isReadUsersString = get(title2users, d.Title, "");
           const isReadUsers = new Set(isReadUsersString.split(","));
-          data.isReadUsers = isReadUsers;
+          d.isReadUsers = isReadUsers;
         });
         // setTitle2users(title2users);
       });
   };
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [data]);
   const refetchUsers = () => fetchUsers();
 
   const handleClickBackground = () => {

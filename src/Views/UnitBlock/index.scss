@@ -14,7 +14,9 @@
   border-radius: 17px;
   background: rgb(32, 32, 32);
   cursor: pointer;
-  .isRead {
-    background: #e0b21c;
-  }
+}
+
+.isRead {
+  background: #ebb400;
+  border: 2px solid #ebb400;
 }
