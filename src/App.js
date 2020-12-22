@@ -16,7 +16,7 @@ const App = () => {
 
   React.useEffect(() => {
     const getData = async () => {
-      const visData = await d3.csv("ieee_vis_1990_2019[countries]_1116.csv");
+      const visData = await d3.csv("ieee_vis_1990_2019[countries]_1222.csv");
 
       const pvisData = await d3.csv("pvis_1990_2020_countries.csv");
 

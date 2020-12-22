@@ -6,7 +6,7 @@ import * as d3 from "d3";
 export const UnitView = ({ data, handleClick }) => {
   const visTypeList = ["SciVis", "InfoVis", "VAST", "PacificVis"];
   const beginYear = 1990;
-  const endYear = 2019;
+  const endYear = 2020;
   const yearList = [];
   for (let i = endYear; i >= beginYear; i--) {
     yearList.push(i);

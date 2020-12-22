@@ -7,16 +7,17 @@
 }
 
 .unit {
-  width: 5px;
+  width: 8px;
   border: 1px solid rgb(255, 255, 255);
-  height: 5px;
+  height: 8px;
   // margin: 0.5px;
-  border-radius: 17px;
+  border-radius: 20px;
   background: rgb(32, 32, 32);
   cursor: pointer;
 }
 
 .isRead {
-  background: #ebb400;
-  border: 2px solid #ebb400;
+  background: #eeb600;
+  border: 2px solid #eeb600;
+  opacity: 1 !important;
 }
